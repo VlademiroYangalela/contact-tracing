@@ -1,6 +1,6 @@
 public with sharing class CTPersonController {
     
-    //Metódo para criação de um token usando o MD5 Blob Hash
+    //Metódo para criação, GERAÇÃO de um token usando o MD5 Blob Hash
     public static String getToken(String mobileNo){
         Blob value = Blob.valueOf(mobileNo);
         Blob hash = Crypto.generateDigest('MD5', value);
@@ -9,7 +9,7 @@ public with sharing class CTPersonController {
         return EncodingUtil.base64Encode(hash);
     }
 
-    //get 100 contacts with recent health status change by Query
+    //getPegar os  100 contactos with recent health status change by Query
    public static List<Person__c> getRecentHealthChanges(){
         return [SELECT Id, Name, Health_Status__c, Mobile__c, Status_Update_Date__c, Token__c 
                 FROM Person__c 
@@ -27,7 +27,7 @@ public with sharing class CTPersonController {
                 ORDER BY Status_Update_Date__c DESC NULLS LAST];
    }
 
-   //Procurar pessoa por Id e @retorna person__c
+   //Procurar pessoa por Id e @retornar person__c
    public static Person__c getPersonById(String personId){
         List<Person__c> people = [SELECT Id, Name, Health_Status__c, Mobile__c, Status_Update_Date__c, Token__c 
                                   FROM Person__c 
